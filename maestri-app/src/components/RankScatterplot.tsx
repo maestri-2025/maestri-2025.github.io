@@ -50,7 +50,9 @@ function RankScatterPlot(props: {artist: Artist, tracksForArtist: Array<Track>, 
 
     useEffect(() => {
         const data = buildRanksData()
-        console.log("hadsgj", data)
+
+        //console.log("hadsgj", data)
+
         setData(data)
     }, [xAxis, yAxis, props.artist, props.currentWeek]);
 
