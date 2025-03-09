@@ -223,13 +223,16 @@ function Artist(props: ArtistProps) {
 
 
                     <div className='grid grid-cols-5' style={{gap: "2rem"}}>
-                        <div className='col-span-3'>
+                        <div className='col-span-3 flex flex-col' style={{gap: "1.25rem"}}>
                           <div className='clipped'>
                             <ChoroplethChart mapData={mapData} />
                           </div>
+                          <div style={{height: "25rem", width: "100%"}}>
+                            <BumpChart data={props.model.getBumpData(currentArtist, selectedCountry.spotifyCode, currentIndex)}/>
+                          </div>
                         </div>
-                        <div className='col-span-2'>
-                            <div style={{height: '55vh'}}>
+                        <div className='col-span-2 flex flex-col' style={{gap: "1.25rem"}}>
+                            <div className='clipped flex flex-col'>
                                 <h2 style={{ color: getColorPalette().amber, margin: "0 0 1rem 0" }}> Charting Tracks ({ chartingsOneWeek.length })</h2>
                                 <div className="flex flex-col" style={{ gap: "1rem", overflowY: 'scroll', height: "100%"}}>
                                     { chartingsOneWeek.length === 0 ? (
@@ -239,17 +242,16 @@ function Artist(props: ArtistProps) {
                                     )}
                                 </div>
                             </div>
+                            <div style={{width: "100vh"}}>
+                              <RankScatterPlot artist={currentArtist} tracksForArtist={
+                                props.model.getTracksForArtist(currentArtist.artist_id)
+                              } currentWeek={props.model.allWeeks[currentIndex]} dataSelection={selectedCountry}></RankScatterPlot>
+                            </div>
                         </div>
                     </div>
                     <div className='flex flex-row'>
-                        <div style={{height: "40vh", width: "100vh"}}>
-                            <BumpChart data={props.model.getBumpData(currentArtist, selectedCountry.spotifyCode, currentIndex)}/>
-                        </div>
-                        <div style={{width: "100vh"}}>
-                            <RankScatterPlot artist={currentArtist} tracksForArtist={
-                                props.model.getTracksForArtist(currentArtist.artist_id)
-                            } currentWeek={props.model.allWeeks[currentIndex]} dataSelection={selectedCountry}></RankScatterPlot>
-                        </div>
+
+
                     </div>
                 </div>
             </div>

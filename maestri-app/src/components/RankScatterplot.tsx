@@ -68,8 +68,8 @@ function RankScatterPlot(props: {artist: Artist, tracksForArtist: Array<Track>, 
 
 
     return (
-        <div style={{display: 'flex', justifyContent: 'center', height: '100%'}}>
-          <div style={{ position:'relative', height: '450px', width: "450px"}}>
+        <div style={{display: 'flex', height: '100%'}}>
+          <div style={{ position:'relative', height: '25rem', width: "25rem"}}>
             <ResponsiveScatterPlot
               data={data}
               margin={{ top: 25, right: 25, bottom: 70, left: 70 }}
@@ -117,7 +117,7 @@ function RankScatterPlot(props: {artist: Artist, tracksForArtist: Array<Track>, 
             />
           </div>
           <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: "1rem"}} >
-            Set Y-axix here:
+            Set Y-axis here:
             <Dropdown
               style={{width: '100%'}}
               value={yAxis}
