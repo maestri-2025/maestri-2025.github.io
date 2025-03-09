@@ -1,6 +1,8 @@
 import { Card } from "primereact/card";
+import {useNavigate} from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
 
   const mapHeader = (
     <img alt="Card" className="" src="https://images.genius.com/073372f6cd316f7c68b4c4b7d8c610c9.675x675x1.jpg"/>
@@ -20,11 +22,11 @@ function Home() {
       
       <div className="flex flex-row justify-center" >
         <div className="flex flex-row w-1/2">
-          <a href="/network" className="no-underline">
+          <div onClick={() =>  navigate('/network?id=2358')} className="no-underline">
             <Card title="Explore Connections" subTitle="See how different artists have collaborated" header={mapHeader}/>
-          </a>
+          </div>
           <div className="w-1/10"/>
-          <a href="/artist" className="no-underline">
+          <a onClick={() =>  navigate('/artist?id=2358')} className="no-underline">
             <Card title="Artist" subTitle="Checkout a random artist and their contributors" header={artistHeader}/>
           </a>
         </div>
