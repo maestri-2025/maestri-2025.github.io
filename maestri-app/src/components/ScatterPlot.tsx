@@ -74,9 +74,9 @@ function ScatterPlot(props: { currentTracks: Array<Track> }) {
               data={data}
               margin={{ top: 25, right: 25, bottom: 70, left: 70 }}
               xScale={{ type: 'linear', min: 0, max: 'auto' }}
-              xFormat=">-.2f"
+              xFormat=">-d"
               yScale={{ type: 'linear', min: 0, max: 'auto' }}
-              yFormat=">-.2f"
+              yFormat=">-d"
               axisTop={null}
               axisRight={null}
               theme={getTheme()}
@@ -100,6 +100,20 @@ function ScatterPlot(props: { currentTracks: Array<Track> }) {
                 legendOffset: -60,
                 truncateTickAt: 0
               }}
+              tooltip={({ node }) => (
+                <div style={{
+                  color: '#000000',
+                  background: '#FFFFFF',
+                  padding: '5px 5px',
+                  fontSize: '14px',
+                }}>
+                  <div className="flex flex-col" style={{gap: "0.125rem"}}>
+                    <span>{node.id.substring(0, node.id.lastIndexOf('.'))}</span>
+                    <strong>{xAxis.label}: {node.formattedX}</strong>
+                    <strong>{yAxis.label}: {node.formattedY}</strong>
+                  </div>
+                </div>
+              )}
               // legends={[
               //     {
               //         anchor: 'bottom-right',

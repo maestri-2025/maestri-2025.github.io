@@ -74,9 +74,9 @@ function RankScatterPlot(props: {artist: Artist, tracksForArtist: Array<Track>, 
               data={data}
               margin={{ top: 25, right: 25, bottom: 70, left: 70 }}
               xScale={{ type: 'linear', min: 200, max: 0 }}
-              xFormat=">-.2f"
+              xFormat=">-d"
               yScale={{ type: 'linear', min: 200, max: 0 }}
-              yFormat=">-.2f"
+              yFormat=">-d"
               axisTop={null}
               axisRight={null}
               theme={getTheme()}
@@ -109,9 +109,11 @@ function RankScatterPlot(props: {artist: Artist, tracksForArtist: Array<Track>, 
                   padding: '5px 5px',
                   fontSize: '14px',
                 }}>
-                  {node.id.split('.')[0]}: &nbsp;
-                  <strong>Rank {countryMappings.find(country => country.spotifyCode === xAxis)?.label}: {node.formattedX}, &nbsp;</strong>
-                  <strong>Rank {countryMappings.find(country => country.spotifyCode === yAxis)?.label}: {node.formattedY}</strong> 
+                  <div className="flex flex-col" style={{gap: "0.125rem"}}>
+                    <span>{node.id.substring(0, node.id.lastIndexOf('.'))}</span>
+                    <strong>Rank {countryMappings.find(country => country.spotifyCode === xAxis)?.label}: {node.formattedX}</strong>
+                    <strong>Rank {countryMappings.find(country => country.spotifyCode === yAxis)?.label}: {node.formattedY}</strong>
+                  </div>
                 </div>
               )}
             />

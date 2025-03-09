@@ -91,7 +91,7 @@ function Artist(props: ArtistProps) {
         const interval = setInterval(() => {
             setMapData(allMapData[currentIndex]);
             setCurrentIndex((prevIndex) => (prevIndex + 1) % props.model.allWeeks.length);
-        }, 250); // Update every second (can adjust this)
+        }, 500); // Update every second (can adjust this)
 
         return () => clearInterval(interval);
         }
@@ -108,10 +108,6 @@ function Artist(props: ArtistProps) {
             setMapData(allMapData[e.value])
         }
     };
-
-    function timelineButton() {
-
-    }
   
     return (
         <div className="flex flex-col" style={{padding: "1rem", gap: "1.25rem"}}>
@@ -214,7 +210,7 @@ function Artist(props: ArtistProps) {
                             min={0}
                             max={props.model.allWeeks.length - 1}
                             onChange={handleSliderChange}
-                            pt={{root: {style: {cursor: 'pointer'}}}}
+                            pt={{root: {style: {cursor: 'pointer', margin: "0 7px"}}}}
                             //onSlideEnd={handleSliderEnd}
                           />
                         </div>
