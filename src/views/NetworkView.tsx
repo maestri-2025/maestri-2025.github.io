@@ -1,15 +1,15 @@
 import {useEffect, useMemo, useState} from "react";
-import { DataModel } from '../DataModel';
+import { DataModel } from '../DataModel.ts';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
-import { Artist, NetworkNode, Track } from '../utils/interfaces';
-import NetworkChart from '../components/NetworkChart';
+import { Artist, NetworkNode, Track } from '../utils/interfaces.ts';
+import NetworkChart from '../components/NetworkChart.tsx';
 import { DataScroller } from 'primereact/datascroller';
 import { Panel } from 'primereact/panel';
 import { Chip } from 'primereact/chip';
 import { Tooltip } from 'primereact/tooltip';
-import { getColorPalette } from '../utils/colorUtilities';
+import { getColorPalette } from '../utils/colorUtilities.ts';
 import {contributionLabels} from "../utils/dataUtilities.ts";
 
 

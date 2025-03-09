@@ -1,7 +1,7 @@
 import {InputNode, ResponsiveNetwork } from "@nivo/network"
-import NetWorkNodeComponent from "./NetworkNodeComponent";
-import { Artist, NetworkNode } from "../utils/interfaces";
-import { DataModel } from "../DataModel";
+import NetWorkNodeComponent from "./NetworkNodeComponent.tsx";
+import { Artist, NetworkNode } from "../utils/interfaces.ts";
+import { DataModel } from "../DataModel.ts";
 import {getColorPalette} from "../utils/colorUtilities.ts";
 import {useEffect, useRef} from "react";
 

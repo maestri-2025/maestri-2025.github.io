@@ -1,8 +1,8 @@
-import { getTheme, NIVO_DARK } from '../utils/colorUtilities';
+import { getTheme, NIVO_DARK } from '../utils/colorUtilities.ts';
 import { ResponsiveBump } from '@nivo/bump'
 import { BasicTooltip } from '@nivo/tooltip'
 import NoDataFoundMessage from "./NoDataFoundMessage.tsx";
-import { countryMappings } from "../utils/mapUtilities";
+import { countryMappings } from "../utils/mapUtilities.ts";
 
 interface BumpChartProps {
     readonly data: Array<{

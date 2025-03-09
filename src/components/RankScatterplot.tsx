@@ -1,8 +1,8 @@
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/scatterplot
 import {ResponsiveScatterPlot} from '@nivo/scatterplot'
-import {getTheme} from '../utils/colorUtilities';
-import {Artist, Track} from '../utils/interfaces';
+import {getTheme} from '../utils/colorUtilities.ts';
+import {Artist, Track} from '../utils/interfaces.ts';
 import {Dropdown} from 'primereact/dropdown';
 import {useEffect, useState} from 'react';
 import {CountryDetails} from "../utils/mapUtilities.ts";
