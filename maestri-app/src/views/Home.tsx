@@ -26,9 +26,9 @@ function Home() {
             <Card title="Explore Connections" subTitle="See how different artists have collaborated" header={mapHeader}/>
           </div>
           <div className="w-1/10"/>
-          <a onClick={() =>  navigate('/artist?id=2358')} className="no-underline">
+          <div onClick={() =>  navigate('/artist?id=2358')} className="no-underline">
             <Card title="Artist" subTitle="Checkout a random artist and their contributors" header={artistHeader}/>
-          </a>
+          </div>
         </div>
 
       </div>
