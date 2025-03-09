@@ -33,6 +33,7 @@ function Network(props: { readonly model: DataModel }) {
         const collaborationsIdSet = new Set(collaborationsIds)
         const collaborations = props.model.getSpecificTracks(collaborationsIds)
         const contributionTypesCounts = Array.from(collaborator.contributions.filter((c) => collaborationsIdSet.has(String(c.song_id))).map((c) => c.type).reduce((acc, e) => (acc.set(e, 1 + (acc.get(e) || 0))), new Map<string, number>).entries())
+        const contributionTypesCountsMainArtist = Array.from(artist.contributions.filter((c) => collaborationsIdSet.has(String(c.song_id))).map((c) => c.type).reduce((acc, e) => (acc.set(e, 1 + (acc.get(e) || 0))), new Map<string, number>).entries())
 
 
         const header = <>
@@ -65,6 +66,16 @@ function Network(props: { readonly model: DataModel }) {
                         <span className={`chip-${type}-${collaborator.artist_id}`} style={{ backgroundColor: "#424b57", borderRadius: "20px", padding: "0.25rem 0.5rem", fontSize: "80%" }}>{`${type}: ${count}`}</span>
                         {/*<Chip className={`chip-${type}-${collaborator.artist_id}`} style={{ fontSize: "70%", margin: 1 }} label= data-pr-tooltip={"ciao"}/>*/}
                         <Tooltip target={`.chip-${type}-${collaborator.artist_id}`} content={`How many ${type} credits ${collaborator.name} has on songs that ${artist.name} has contributed to`} />
+                      </>
+                    })
+                  }
+              </span>
+              <span className='flex flex-row' style={{ gap: "0.375rem", flexWrap: "wrap"}}>
+                  {
+                    contributionTypesCountsMainArtist.map(([type, count]: [string, number]) => {
+                      return <>
+                        <span className={`chip-${type}-${collaborator.artist_id}-main`} style={{ backgroundColor: "#424b57", borderRadius: "20px", padding: "0.25rem 0.5rem", fontSize: "80%" }}>{`${type}: ${count}`}</span>
+                        <Tooltip target={`.chip-${type}-${collaborator.artist_id}-main`} content={`How many ${type} credits ${artist.name} has on songs that ${collaborator.name} has contributed to`} />
                       </>
                     })
                   }
