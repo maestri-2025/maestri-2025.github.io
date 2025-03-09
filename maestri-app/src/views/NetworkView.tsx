@@ -1,5 +1,4 @@
-import { ComputedNode } from '@nivo/network'
-import {useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import { DataModel } from '../DataModel';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from 'primereact/button';
@@ -16,13 +15,13 @@ import {contributionLabels} from "../utils/dataUtilities.ts";
 
 
 function Network(props: { readonly model: DataModel }) {
+    console.log("rendering Network")
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
-    const selectedArtistId = searchParams.get("id") || "1405";
 
     const allArtists = props.model.getArtists();
-    const [artist, setArtist] = useState(props.model.getArtist(selectedArtistId));
-    const history = (searchParams.get("history") == "" ? undefined : searchParams.get("history"))?.split(",") || [];
+    const [artist, setArtist] = useState(props.model.getArtist(searchParams.get("id") || "1405"));
+    const [history, setHistory] = useState<string[]>([]);
 
     const collaborators = props.model.networkData[artist.artist_id]["nodes"].filter((n) => n.id != artist.artist_id).sort((a, b) => -(a.num_collaborations - b.num_collaborations))
 
@@ -106,14 +105,19 @@ function Network(props: { readonly model: DataModel }) {
         )
     }
 
+    useEffect(() => {
+      // console.log("ID", searchParams.get("id"))
+      setArtist(props.model.getArtist(searchParams.get("id") || "1405"))
+    }, [searchParams.get("id")]);
 
+    useEffect(() => {
+      // console.log("history", searchParams.get("history"))
+      setHistory((searchParams.get("history") == "" ? undefined : searchParams.get("history"))?.split(",") || []);
+    }, [searchParams.get("history")]);
 
-
-
-    function getArtistHistoryCards() {
-        console.log([...history, selectedArtistId])
-
-        return [...history, selectedArtistId]
+    const historyCards = useMemo(() => {
+        console.log("Cards", history, artist.artist_id)
+        return [...history, artist.artist_id]
           .map(id  => props.model.getArtist(id))
           .map((artistInfo, idx)=> {
               const artistImageLink = artistInfo.image_url || "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1114445501.jpg";
@@ -144,8 +148,6 @@ function Network(props: { readonly model: DataModel }) {
                   border: idx === history.length ? "2px solid rgb(196, 149, 27)" : "2px solid #111827"
               }
 
-              console.log(idx === history.length)
-
               return <Chip style={chipStyle} template={content} />
           }).reduce(((previousValue, currentValue) =>  {
               return (
@@ -156,7 +158,7 @@ function Network(props: { readonly model: DataModel }) {
                 </>
               )
           }));
-    }
+    }, [history]);
 
     function setNewArtist(e: DropdownChangeEvent) {
         if (e.value.artist_id == searchParams.get("id")) return;
@@ -166,7 +168,6 @@ function Network(props: { readonly model: DataModel }) {
             prev.set("id", e.value.artist_id);
             return prev;
         });
-        setArtist(props.model.getArtist(e.value.artist_id));
     }
 
     function selectArtist(artistId: string) {
@@ -179,7 +180,6 @@ function Network(props: { readonly model: DataModel }) {
         prev.set("id", artistId);
         return prev;
       });
-      setArtist(props.model.getArtist(artistId));
     }
 
     function backTrackToIdx(idx: number) {
@@ -192,7 +192,6 @@ function Network(props: { readonly model: DataModel }) {
             prev.set("id", history[idx]);
             return prev;
         });
-        setArtist(props.model.getArtist(history[idx]));
     }
 
     function trackDisplay(track: Track, focusedArtist: Artist, collaborator: Artist) {
@@ -246,7 +245,7 @@ function Network(props: { readonly model: DataModel }) {
         <div className='flex flex-col col-span-6' style={{gap: '1rem', padding: '1rem'}}>
           <br/>
           <div className="flex flex-row" style={{overflowX: 'scroll', gap: '0.75rem', padding: "0.25rem 0.5rem", borderRadius: '5px', borderLeft: "1px solid #424b57", borderRight: "1px solid #424b57"}}>
-            { getArtistHistoryCards() }
+            { historyCards }
           </div>
           <NetworkChart model={props.model} artist={artist} clickedNode={selectArtist}></NetworkChart>
         </div>
